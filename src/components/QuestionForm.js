@@ -3,10 +3,7 @@ import React, { useState } from "react";
 function QuestionForm({ onAddQuestion }) {
   const [formData, setFormData] = useState({
     prompt: "",
-    answer1: "",
-    answer2: "",
-    answer3: "",
-    answer4: "",
+    answers: ["answer1", "answer2", "answer3", "answer4"],
     correctIndex: 0,
   });
 
@@ -24,11 +21,7 @@ function QuestionForm({ onAddQuestion }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: {
-        "prompt": "string",
-        "answers": ["string1", "string2", "string3", "string4"],
-        "correctIndex": "integer"
-      }
+      body: JSON.stringify(formData)
     })
       .then((r) => r.json())
       .then((newQuestion) => onAddQuestion(newQuestion));
